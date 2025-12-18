@@ -219,7 +219,6 @@ public abstract class Animal implements Runnable {
         }
         this.isHungry = false; // Животное больше не голодно
     }
-
     /**
      * Перемещение животного
      *
