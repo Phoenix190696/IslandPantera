@@ -222,8 +222,8 @@ public abstract class Animal implements Runnable {
     /**
      * Перемещение животного
      *
-     * @param cell клетка, где находится животное
-     * @param cell клетка, куда переместиться
+     * @param source клетка, где находится животное
+     * @param destination клетка, куда переместиться
      */
     public void move(Cell source, Cell destination) {
         lock.lock();
