@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 // Импорт потокобезопасного списка.
+
 /**
  * Класс {@code Cell} представляет клетку острова.
  * В клетке могут находиться животные и растения.
@@ -30,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *     <li>Запуск жизненного цикла животных и растений.</li>
  *     <li>Проверка наличия свободного места для новых объектов.</li>
  * </ul>
- *
+ * <p>
  * Пример использования:
  * <pre>{@code
  * Cell cell = new Cell(0, 0);
@@ -54,6 +55,7 @@ public class Cell {
 
     private final Map<Class<? extends Plant>, List<Plant>> plants = new ConcurrentHashMap<>();
     // Потокобезопасная карта: класс растения → список растений в клетке.
+
     /**
      * Конструктор клетки.
      *
@@ -66,11 +68,16 @@ public class Cell {
         this.Y = y;
     }
 
-    public int getX() { return X; }
+    public int getX() {
+        return X;
+    }
     // Возвращает координату X клетки.
 
-    public int getY() { return Y; }
+    public int getY() {
+        return Y;
+    }
     // Возвращает координату Y клетки.
+
     /**
      * Проверяет, есть ли место для растения данного вида в клетке.
      *
@@ -82,6 +89,7 @@ public class Cell {
         List<Plant> list = plants.getOrDefault(plant.getClass(), new CopyOnWriteArrayList<>());
         return list.size() < plant.getMaxPerCell();
     }
+
     /**
      * Проверяет, есть ли место для животного данного вида в клетке.
      *
@@ -93,6 +101,7 @@ public class Cell {
         List<Animal> list = animals.getOrDefault(animal.getClass(), new CopyOnWriteArrayList<>());
         return list.size() < animal.getMaxPerCell();
     }
+
     /**
      * Запускает жизненный цикл конкретного объекта (животного или растения).
      *
@@ -120,7 +129,10 @@ public class Cell {
             }
         }
     }
-    /** Запускает жизненный цикл всех растений в клетке. */
+
+    /**
+     * Запускает жизненный цикл всех растений в клетке.
+     */
     public void runAllPlants() {
         // Запускает жизненный цикл всех растений в клетке.
         for (List<Plant> list : plants.values()) {
@@ -130,7 +142,9 @@ public class Cell {
         }
     }
 
-    /** Запускает жизненный цикл всех животных в клетке. */
+    /**
+     * Запускает жизненный цикл всех животных в клетке.
+     */
     public void runAllAnimals() {
         // Запускает жизненный цикл всех животных в клетке.
         for (List<Animal> list : animals.values()) {
@@ -139,6 +153,7 @@ public class Cell {
             }
         }
     }
+
     /**
      * Добавляет растение в клетку.
      *
@@ -165,6 +180,7 @@ public class Cell {
             }
         }
     }
+
     /**
      * Добавляет животное в клетку.
      *
@@ -174,6 +190,7 @@ public class Cell {
         // Добавляет животное в клетку.
         animals.computeIfAbsent(animal.getClass(), k -> new CopyOnWriteArrayList<>()).add(animal);
     }
+
     /**
      * Удаляет животное из клетки.
      *
@@ -190,11 +207,21 @@ public class Cell {
             }
         }
     }
-    /** @return карта животных в клетке */
-    public Map<Class<? extends Animal>, List<Animal>> getAnimals() { return animals; }
+
+    /**
+     * @return карта животных в клетке
+     */
+    public Map<Class<? extends Animal>, List<Animal>> getAnimals() {
+        return animals;
+    }
     // Возвращает карту животных в клетке.
-    /** @return карта растений в клетке */
-    public Map<Class<? extends Plant>, List<Plant>> getPlants() { return plants; }
+
+    /**
+     * @return карта растений в клетке
+     */
+    public Map<Class<? extends Plant>, List<Plant>> getPlants() {
+        return plants;
+    }
     // Возвращает карту растений в клетке.
 }
 

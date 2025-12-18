@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 
 import java.util.concurrent.ScheduledExecutorService;
 // Импорт планировщика задач с фиксированным интервалом.
+
 /**
  * Класс {@code Simulation} отвечает за запуск и управление симуляцией острова.
  * Он инициализирует животных и растения, запускает их жизненные процессы
@@ -30,7 +31,7 @@ import java.util.concurrent.ScheduledExecutorService;
  *     <li>Вывод статистики по видам на каждом шаге симуляции.</li>
  *     <li>Проверка условий завершения симуляции.</li>
  * </ul>
- *
+ * <p>
  * Пример использования:
  * <pre>{@code
  * public static void main(String[] args) {
@@ -41,18 +42,18 @@ import java.util.concurrent.ScheduledExecutorService;
 public class Simulation {
     // Главный класс, запускающий симуляцию острова.
 
-    static int counter=0;
+    static int counter = 0;
     // Счётчик шагов симуляции.
 
     public static void main(String[] args) {
         // Точка входа в программу.
-        Configuration config=new Configuration();
+        Configuration config = new Configuration();
         // Создаём объект конфигурации (параметры симуляции).
-        Island island=new Island(Configuration.SIZE_ISLAND_FOR_X, Configuration.SIZE_ISLAND_FOR_Y);
+        Island island = new Island(Configuration.SIZE_ISLAND_FOR_X, Configuration.SIZE_ISLAND_FOR_Y);
         // Создаём остров с заданными размерами.
         init(island);
         // Инициализируем остров (заселяем животными и растениями).
-        Statistics statistics=new Statistics(island);
+        Statistics statistics = new Statistics(island);
         // Создаём объект для подсчёта статистики.
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(Configuration.MAX_THREADS);
         // Создаём пул потоков для выполнения задач с фиксированным интервалом.
@@ -71,7 +72,7 @@ public class Simulation {
 
         executor.scheduleAtFixedRate(() -> {
             // Планируем задачу для вывода статистики.
-            System.out.println("Step "+counter);
+            System.out.println("Step " + counter);
             // Выводим номер шага симуляции.
             statistics.printStatistics(Grass.class);
             statistics.printStatistics(Boar.class);
@@ -96,31 +97,33 @@ public class Simulation {
         }, 0, config.TICK_SIMULATION, Configuration.TIME_UNIT);
         // Запускаем каждые TICK_SIMULATION единиц времени.
     }
+
     /**
      * Инициализирует остров, создавая заданное количество животных и растений.
      *
      * @param island объект острова
      */
-    public static void init(Island island){
+    public static void init(Island island) {
         // Метод для начальной инициализации острова.
-        createPlantsRandom(island, Grass.class,100);
+        createPlantsRandom(island, Grass.class, 100);
         // Создаём 100 растений травы.
-        createAnimalsRandom(island, Boar.class,50);
-        createAnimalsRandom(island, Buffalo.class,10);
-        createAnimalsRandom(island, Caterpillar.class,1000);
-        createAnimalsRandom(island, Deer.class,20);
-        createAnimalsRandom(island, Duck.class,200);
-        createAnimalsRandom(island, Goat.class,140);
-        createAnimalsRandom(island, Horse.class,20);
-        createAnimalsRandom(island, Mouse.class,500);
-        createAnimalsRandom(island, Rabbit.class,150);
-        createAnimalsRandom(island, Sheep.class,140);
-        createAnimalsRandom(island, Bear.class,5);
-        createAnimalsRandom(island, Boa.class,30);
-        createAnimalsRandom(island, Fox.class,30);
-        createAnimalsRandom(island, Wolf.class,30);
+        createAnimalsRandom(island, Boar.class, 50);
+        createAnimalsRandom(island, Buffalo.class, 10);
+        createAnimalsRandom(island, Caterpillar.class, 1000);
+        createAnimalsRandom(island, Deer.class, 20);
+        createAnimalsRandom(island, Duck.class, 200);
+        createAnimalsRandom(island, Goat.class, 140);
+        createAnimalsRandom(island, Horse.class, 20);
+        createAnimalsRandom(island, Mouse.class, 500);
+        createAnimalsRandom(island, Rabbit.class, 150);
+        createAnimalsRandom(island, Sheep.class, 140);
+        createAnimalsRandom(island, Bear.class, 5);
+        createAnimalsRandom(island, Boa.class, 30);
+        createAnimalsRandom(island, Fox.class, 30);
+        createAnimalsRandom(island, Wolf.class, 30);
         // Заселяем остров животными разных видов в указанном количестве.
     }
+
     /**
      * Создаёт указанное количество животных случайным образом на острове.
      *
@@ -151,6 +154,7 @@ public class Simulation {
             }
         }
     }
+
     /**
      * Создаёт указанное количество растений случайным образом на острове.
      *
@@ -181,6 +185,7 @@ public class Simulation {
             }
         }
     }
+
     /**
      * Проверяет условие завершения симуляции.
      * <p>Если на острове не осталось живых животных и растений,

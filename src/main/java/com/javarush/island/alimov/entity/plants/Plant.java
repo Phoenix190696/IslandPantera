@@ -18,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.concurrent.locks.ReentrantLock;
 // Импорт блокировки для синхронизации потоков.
+
 /**
  * Абстрактный класс {@code Plant} представляет растение на острове.
  * Растения обладают весом, возрастом, могут размножаться и умирать.
@@ -31,7 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *     <li>Учет возраста и состояния (живое/мертвое).</li>
  *     <li>Удаление растения при смерти.</li>
  * </ul>
- *
+ * <p>
  * Пример использования:
  * <pre>{@code
  * Plant grass = new Grass("Grass", "🌿", 1.0, 200, cell, island, true);
@@ -67,16 +68,17 @@ public abstract class Plant implements Runnable {
 
     protected final ReentrantLock lock = new ReentrantLock();
     // Блокировка для синхронизации доступа к объекту растения.
+
     /**
      * Конструктор растения.
      *
-     * @param name имя растения
-     * @param icon иконка растения
+     * @param name          имя растения
+     * @param icon          иконка растения
      * @param currentWeight текущий вес
-     * @param maxPerCell максимальное количество растений в клетке
-     * @param currentCell клетка, где находится растение
-     * @param island остров, которому принадлежит растение
-     * @param isAlive состояние растения (живое/мертвое)
+     * @param maxPerCell    максимальное количество растений в клетке
+     * @param currentCell   клетка, где находится растение
+     * @param island        остров, которому принадлежит растение
+     * @param isAlive       состояние растения (живое/мертвое)
      */
     public Plant(String name, String icon, double currentWeight, int maxPerCell,
                  Cell currentCell, Island island, boolean isAlive) {
@@ -101,18 +103,39 @@ public abstract class Plant implements Runnable {
     }
 
     // Геттеры для доступа к полям:
-    public String getName() { return name; }
-    public String getIcon() { return icon; }
-    public double getCurrentWeight() { return currentWeight; }
-    public int getMaxPerCell() { return maxPerCell; }
-    public Cell getCurrentCell() { return currentCell; }
-    public Island getIsland() { return island; }
-    public boolean isAlive() { return isAlive; }
+    public String getName() {
+        return name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public double getCurrentWeight() {
+        return currentWeight;
+    }
+
+    public int getMaxPerCell() {
+        return maxPerCell;
+    }
+
+    public Cell getCurrentCell() {
+        return currentCell;
+    }
+
+    public Island getIsland() {
+        return island;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
     /**
      * Абстрактный метод для создания нового экземпляра растения.
      * Реализуется в наследниках (например, Grass).
      *
-     * @param cell клетка, где будет создано новое растение
+     * @param cell   клетка, где будет создано новое растение
      * @param island остров, которому принадлежит растение
      * @return новый экземпляр растения
      */
@@ -122,7 +145,7 @@ public abstract class Plant implements Runnable {
     /**
      * Размножение растения в текущей или соседней клетке.
      *
-     * @param cell клетка, где находится растение
+     * @param cell   клетка, где находится растение
      * @param island остров
      */
     public void reproduce(Cell cell, Island island) {
@@ -159,6 +182,7 @@ public abstract class Plant implements Runnable {
             // Освобождаем блокировку.
         }
     }
+
     /**
      * Жизненный цикл растения.
      * <p>Увеличивает возраст, пытается размножиться,
@@ -188,10 +212,11 @@ public abstract class Plant implements Runnable {
             // Освобождаем блокировку.
         }
     }
+
     /**
      * Возвращает случайную соседнюю клетку.
      *
-     * @param cell текущая клетка
+     * @param cell   текущая клетка
      * @param island остров
      * @return случайная соседняя клетка или {@code null}, если соседей нет
      */

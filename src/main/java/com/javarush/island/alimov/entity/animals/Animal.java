@@ -1,13 +1,16 @@
 package com.javarush.island.alimov.entity.animals;
+
 import com.javarush.island.alimov.Cell;
 import com.javarush.island.alimov.Configuration;
 import com.javarush.island.alimov.Island;
 import com.javarush.island.alimov.entity.plants.Plant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Абстрактный класс {@code Animal} представляет животное на острове.
  * Животные обладают весом, возрастом, могут перемещаться, питаться,
@@ -22,7 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *     <li>Размножение при выполнении условий.</li>
  *     <li>Учёт возраста и состояния (живое/мертвое, голодное/сытое).</li>
  * </ul>
- *
+ * <p>
  * Пример использования:
  * <pre>{@code
  * Animal wolf = new Wolf("Wolf", "🐺", 30.0, 50.0, 30,
@@ -57,17 +60,17 @@ public abstract class Animal implements Runnable {
     /**
      * Конструктор для создания животного.
      *
-     * @param name имя животного
-     * @param icon иконка животного
-     * @param currentWeight текущий вес
-     * @param maxWeight максимальный вес
-     * @param maxPerCell максимальное количество животных в клетке
-     * @param speed скорость передвижения
+     * @param name               имя животного
+     * @param icon               иконка животного
+     * @param currentWeight      текущий вес
+     * @param maxWeight          максимальный вес
+     * @param maxPerCell         максимальное количество животных в клетке
+     * @param speed              скорость передвижения
      * @param foodForFullSatiety количество пищи для насыщения
-     * @param currentCell клетка, где находится животное
-     * @param island остров
-     * @param isAlive состояние животного (живое/мертвое)
-     * @param isHungry состояние голода (true — голодно, false — сыто)
+     * @param currentCell        клетка, где находится животное
+     * @param island             остров
+     * @param isAlive            состояние животного (живое/мертвое)
+     * @param isHungry           состояние голода (true — голодно, false — сыто)
      */
     public Animal(String name, String icon, double currentWeight, double maxWeight, int maxPerCell,
                   int speed, double foodForFullSatiety, Cell currentCell, Island island, boolean isAlive, boolean isHungry) {
@@ -128,10 +131,11 @@ public abstract class Animal implements Runnable {
      * @return карта источников пищи
      */
     protected abstract Map<Class<?>, Double> getFoodSources(); // Источники пищи (класс → вероятность поедания)
+
     /**
      * Создание нового экземпляра животного (для размножения).
      *
-     * @param cell клетка, где будет создано животное
+     * @param cell   клетка, где будет создано животное
      * @param island остров
      * @return новый экземпляр животного
      */
@@ -202,7 +206,7 @@ public abstract class Animal implements Runnable {
      * проверяет условие смерти растения и удаляет его из клетки при необходимости.</p>
      *
      * @param plant растение-жертва
-     * @param cell клетка, где происходит поедание
+     * @param cell  клетка, где происходит поедание
      */
     private void consume(Plant plant, Cell cell) {
         double weightPlant = plant.getCurrentWeight(); // Вес растения
@@ -269,12 +273,13 @@ public abstract class Animal implements Runnable {
             lock.unlock();
         }
     }
+
     /**
      * Получение случайной клетки в пределах скорости.
      *
      * @param currentCell текущая клетка
-     * @param speed скорость передвижения
-     * @param location карта острова
+     * @param speed       скорость передвижения
+     * @param location    карта острова
      * @return случайная клетка в пределах скорости
      */
     public Cell getRandomCellWithinSpeed(Cell currentCell, int speed, Cell[][] location) {
@@ -293,6 +298,7 @@ public abstract class Animal implements Runnable {
 
         return location[newX][newY]; // Возвращаем клетку по новым координатам
     }
+
     /**
      * Жизненный цикл животного.
      * <p>Животное становится голодным, теряет вес, стареет,
